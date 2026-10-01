@@ -28,28 +28,29 @@
   --bg:#fff; --fg:#0a0a0a; --mute:#6b6b6b; --line:#e8e8e8; --card:#f5f5f5; --card2:#fafafa;
   --inv:#0a0a0a; --inv-fg:#fff; --shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px rgba(0,0,0,.06);
   --r:22px; --tabbar:68px;
-  --accent:var(--inv); --on-accent:var(--inv-fg);
+  --accent:#2a8f5f; --on-accent:#fff;
 }
 html[data-mw-theme="dark"]{
   color-scheme:dark;
   --bg:#0a0a0a; --fg:#f4f4f4; --mute:#9b9b9b; --line:#232323; --card:#141414; --card2:#101010;
   --inv:#f4f4f4; --inv-fg:#0a0a0a; --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.5);
+  --accent:#5bbf8f; --on-accent:#04140c;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--tabbar) + env(safe-area-inset-bottom) + 12px)}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 input,textarea,select{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--fg);outline-offset:2px;border-radius:8px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 h1,h2,h3{letter-spacing:-.035em;line-height:1.08;font-weight:700}
 
-/* Per-section colour: Today = wellness green, Report = royal blue on baby blue. Everything else stays black and white. */
-#v-today{--accent:#1f9d63;--on-accent:#fff}
-#v-report{--accent:#2447e0;--on-accent:#fff;--card:#eaf1ff;--line:#d5e0fa}
-html[data-mw-theme="dark"] #v-today{--accent:#3ddc97;--on-accent:#04140c}
-html[data-mw-theme="dark"] #v-report{--accent:#8aa6ff;--on-accent:#0a1233;--card:#0f1830;--line:#1f2b50}
-#v-today .sl output,#v-report .stat .big,#v-report .gap .pc{color:var(--accent)}
+/* Colour: wellness green everywhere, royal blue on baby blue for the Report. Backgrounds stay black, white and gray. */
+body[data-tab="report"]{--accent:#2447e0;--on-accent:#fff}
+html[data-mw-theme="dark"] body[data-tab="report"]{--accent:#8aa6ff;--on-accent:#0a1233}
+#v-report{--card:#eaf1ff;--line:#d5e0fa}
+html[data-mw-theme="dark"] #v-report{--card:#0f1830;--line:#1f2b50}
+.sl output,.stat .big,.gap .pc{color:var(--accent)}
 
 /* ---------- portfolio nav ---------- */
 .pnav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 1.25rem;min-height:54px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
@@ -66,21 +67,21 @@ html[data-mw-theme="dark"] .theme .sun{display:block}html[data-mw-theme="dark"] 
 .app{max-width:1080px;margin:0 auto;padding:0 1.25rem}
 .top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:22px 0 8px}
 .logo{display:inline-flex;align-items:center;gap:9px;font-size:26px;font-weight:700;letter-spacing:-.05em}
-.logo i{width:22px;height:22px;border-radius:50%;background:var(--fg);position:relative;display:inline-block}
+.logo i{width:22px;height:22px;border-radius:50%;background:var(--accent);position:relative;display:inline-block}
 .logo i::after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--bg);right:4px;top:4px}
 .pill{font-size:12px;font-weight:500;color:var(--mute);border:1px solid var(--line);border-radius:99px;padding:5px 11px;white-space:nowrap}
 .tabs{display:none}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:space-around;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:saturate(1.4) blur(16px);-webkit-backdrop-filter:saturate(1.4) blur(16px);border-top:1px solid var(--line)}
 .tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:500;color:var(--mute);padding:6px 0;border-radius:12px;min-height:48px}
 .tabbar svg{width:22px;height:22px}
-.tabbar button[aria-selected="true"]{color:var(--fg)}
+.tabbar button[aria-selected="true"]{color:var(--accent)}
 .tabbar button[aria-selected="true"] svg{stroke-width:2.4}
 @media(min-width:820px){
   body{padding-bottom:48px}
   .tabbar{display:none}
   .tabs{display:inline-flex;background:var(--card);border-radius:99px;padding:4px;gap:2px}
   .tabs button{padding:9px 20px;border-radius:99px;font-size:14px;font-weight:500;color:var(--mute);transition:background .2s,color .2s}
-  .tabs button[aria-selected="true"]{background:var(--inv);color:var(--inv-fg)}
+  .tabs button[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
   .app{padding:0 2rem}
 }
 .view{display:none;animation:rise .45s cubic-bezier(.2,.7,.2,1)}
@@ -142,7 +143,7 @@ html[data-mw-theme="dark"] .theme .sun{display:block}html[data-mw-theme="dark"] 
 .formrow{display:grid;gap:12px;margin-top:14px}
 .field{display:grid;gap:6px}.field>span{font-size:13px;font-weight:500;color:var(--mute)}
 .input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;min-height:46px}
-.input:focus{outline:none;border-color:var(--fg)}
+.input:focus{outline:none;border-color:var(--accent)}
 .hrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .int{display:flex;gap:6px}.int button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);font-weight:500;font-size:14px}.int button.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 
@@ -194,10 +195,10 @@ html[data-mw-theme="dark"] .theme .sun{display:block}html[data-mw-theme="dark"] 
 .day{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;border-radius:14px;padding:4px 0}
 .day .val{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;height:16px}
 .day .col2{width:100%;max-width:46px;flex:1;display:flex;align-items:flex-end}
-.day .col2 i{display:block;width:100%;background:var(--line);border-radius:12px;min-height:6px;transition:height .7s cubic-bezier(.2,.7,.2,1),background .2s}
-.day:hover .col2 i{background:var(--mute)}
-.day[aria-pressed="true"] .col2 i{background:var(--fg)}
-.day .dn{font-size:12px;font-weight:500;color:var(--mute)}.day[aria-pressed="true"] .dn{color:var(--fg);font-weight:700}
+.day .col2 i{display:block;width:100%;background:color-mix(in srgb,var(--accent) 22%,var(--line));border-radius:12px;min-height:6px;transition:height .7s cubic-bezier(.2,.7,.2,1),background .2s}
+.day:hover .col2 i{background:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.day[aria-pressed="true"] .col2 i{background:var(--accent)}
+.day .dn{font-size:12px;font-weight:500;color:var(--mute)}.day[aria-pressed="true"] .dn{color:var(--accent);font-weight:700}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 @media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
 .stat{background:var(--bg);border-radius:16px;padding:14px}
@@ -235,16 +236,16 @@ html[data-mw-theme="dark"] .theme .sun{display:block}html[data-mw-theme="dark"] 
 .steps li::before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
 
 /* crew */
-.avs{display:flex}.av{width:36px;height:36px;border-radius:50%;background:var(--inv);color:var(--inv-fg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid var(--bg);flex:none}
+.avs{display:flex}.av{width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid var(--bg);flex:none}
 .avs .av{margin-left:-8px}.avs .av:first-child{margin-left:0}
-.av.alt{background:var(--bg);color:var(--fg);border:1.5px solid var(--fg)}
+.av.alt{background:var(--bg);color:var(--accent);border:1.5px solid var(--accent)}
 .lb{display:grid;gap:10px;margin-top:14px}
 .lbrow{display:grid;grid-template-columns:24px 36px 1fr 38px;gap:10px;align-items:center;font-size:14px;transition:transform .5s}
 .lbrow .nm{display:grid;gap:5px;font-weight:500}.lbrow .bar{height:8px}
 .lbrow b{font-variant-numeric:tabular-nums;text-align:right}.lbrow .rk{color:var(--mute);font-weight:700;text-align:center}
 .lbrow.me .nm{font-weight:700}
 .meet{display:flex;gap:14px;align-items:center;background:var(--bg);border-radius:18px;padding:14px}
-.meet .when{width:78px;flex:none;text-align:center;border-right:1px solid var(--line);padding-right:12px;white-space:nowrap}
+.meet .when{width:94px;flex:none;text-align:center;border-right:1px solid var(--line);padding-right:12px;white-space:nowrap}
 .meet .when b{display:block;font-size:17px;letter-spacing:-.03em;line-height:1.1}.meet .when span{font-size:12px;color:var(--mute)}
 .meet .t{font-weight:700;letter-spacing:-.02em}.meet .s{font-size:13px;color:var(--mute)}
 .meet .btn{margin-left:auto}
@@ -255,7 +256,7 @@ html[data-mw-theme="dark"] .theme .sun{display:block}html[data-mw-theme="dark"] 
 .act{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:99px;font-size:14px;font-weight:500;border:1px solid var(--line);min-height:40px;transition:all .15s}
 .act:hover{border-color:var(--fg)}
 .act svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;transition:transform .2s}
-.act.on{background:var(--inv);color:var(--inv-fg);border-color:var(--inv)}.act.on svg.h{fill:currentColor}
+.act.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}.act.on svg.h{fill:currentColor}
 .act:active svg{transform:scale(1.3)}
 .cm{display:grid;gap:6px;font-size:14px}.cm p b{font-weight:700}
 .cmform{display:flex;gap:8px}
@@ -846,6 +847,7 @@ const VIEWS = { today:renderToday, week:renderWeek, report:renderReport, crew:re
 function go(tab, push) {
   if (!VIEWS[tab]) tab = 'today';
   S.tab = tab; save();
+  document.body.dataset.tab = tab;
   $$('.view').forEach(v => v.classList.toggle('on', v.id === 'v-' + tab));
   $$('[data-go]').forEach(b => b.setAttribute('aria-selected', b.dataset.go === tab));
   VIEWS[tab]();
